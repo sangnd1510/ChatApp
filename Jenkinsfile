@@ -11,12 +11,7 @@ pipeline{
             }
 
         }
-        stage('build client app'){
-            steps{
-                echo 'build client app'
-                sh 'cd ./client && yarn install && yarn run build'
-            }
-        }
+        
          stage('Deploy server to DEV'){
             steps{
                 echo 'Deploying'
