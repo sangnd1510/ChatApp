@@ -1,7 +1,7 @@
 pipeline{
     agent any
     tools{
-        nodejs my-node
+        nodejs 'my-node'
     }
     stages{
         stage('build backend app'){
