@@ -7,15 +7,34 @@ pipeline{
         stage('build backend app'){
             steps{
                 echo 'build backend app'
-                sh 'cd ./api && npm install && npm run build'
+                sh 'cd ./api && yarn install && yarn run build'
             }
 
         }
         stage('build client app'){
             steps{
                 echo 'build client app'
-                sh 'cd ./client && npm install && npm run build'
+                sh 'cd ./client && yarn install && yarn run build'
             }
+        }
+         stage('Deploy server to DEV'){
+            steps{
+                echo 'Deploying'
+                sh 'cd ./api && docker compose up --build'
+            }
+        }
+        stage('Deploy client to DEV'){
+            steps{
+                echo 'Deploying'
+                sh 'cd ./api && docker compose up --build'
+            }
+        }
+       
+       
+    }
+    post {
+        always {
+            cleanWs()
         }
     }
 }
