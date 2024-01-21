@@ -1,34 +1,29 @@
-pipeline{
-    agent any
-    tools{
-        nodejs 'my-node'
+pipeline {
+    agent{
+        any
     }
     stages{
-        stage('build backend app'){
+        stage('building, deploying backend app'){
             steps{
-                echo 'build backend app'
-                sh 'cd ./api && yarn install && yarn run build'
-            }
-
-        }
-        
-         stage('Deploy server to DEV'){
-            steps{
-                echo 'Deploying'
-                sh 'cd ./api && docker compose up --build'
+                withDockerRegistry(credentialsId: 'dockerhub', url: 'https://index.docker.io/v1/'){
+                    sh 'cd api'
+                    sh 'docker compose up -d --build'
+                    sh 'docker compose push'
+                }
             }
         }
-        stage('Deploy client to DEV'){
+        stage('building, deploying frontend app'){
             steps{
-                echo 'Deploying'
-                sh 'cd ./api && docker compose up --build'
+                withDockerRegistry(credentialsId: 'dockerhub', url: 'https://index.docker.io/v1/'){
+                    sh 'cd client'
+                    sh 'docker compose up -d --build'
+                    sh 'docker compose push'
+                }
             }
         }
-       
-       
     }
-    post {
-        always {
+    post{
+        always{
             cleanWs()
         }
     }

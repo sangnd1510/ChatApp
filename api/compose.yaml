@@ -15,7 +15,7 @@ services:
       - example.env
     ports:
       - 3001:3001
-    image: sangnd1510/appchat
+    image: sangnd1510/appchat-api
 
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to
