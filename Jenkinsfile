@@ -1,18 +1,19 @@
 pipeline {
-    agent any
+    agentany
     stages{
         stage('building, deploying backend app'){
             steps{
-                withDockerRegistry(credentialsId: 'dockerhub'){
+                withDockerRegistry(credentialsId: 'dockerhub', url: 'https://hub.docker.com/'){
                     sh 'cd api'
                     sh 'docker compose up -d --build'
                     sh 'docker compose push'
                 }
             }
         }
+       
         stage('building, deploying frontend app'){
             steps{
-                withDockerRegistry(credentialsId: 'dockerhub'){
+                withDockerRegistry(credentialsId: 'dockerhub', url: 'https://hub.docker.com/'){
                     sh 'cd client'
                     sh 'docker compose up -d --build'
                     sh 'docker compose push'
