@@ -58,11 +58,11 @@ const searchUser = async (req, res) => {
                 }
             }
 
-            console.log(responseData);
+            // console.log(responseData);
             res.status(200).json(responseData);
         }
     } catch (error) {
-        console.log(error);
+        return res.status(404).json('not_found');
     }
 };
 
@@ -87,7 +87,7 @@ const updateMyProfile = async (req, res) => {
 const getUserInfomation = async (req, res) => {
     // console.log(req.params.userId);
     try {
-        const user = await userModel.getUserInfomation(req.params.userId);
+        const user = await userModel.getMyInfo(req.params.userId);
         return res.status(200).json(user);
     } catch (error) {
         console.log(error);
