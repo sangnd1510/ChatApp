@@ -72,8 +72,8 @@ function AddFriend({ user }) {
     e.preventDefault();
     try {
       setSearchLoading(true);
-      const responeData = await axiosPrivate.post('/searchUser', { friend });
-      setResultSearch(responeData.data);
+      const {data} = await axiosPrivate.post('/searchUser', { friend });
+      setResultSearch(data);
       setSearchLoading(false);
     } catch (error) {
       console.log(error);
